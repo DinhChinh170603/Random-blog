@@ -7,15 +7,12 @@
     <div class="hero-body">
         <div class="container">
             <section class="section">
-                {% if post.image %}
-                <figure class="image mb-6">
-                    <img src="{{ post.image.url }}">
-                </figure>
-                {% endif %}
+
                 <div class="columns">
+
                     <div class="column is-8 is-offset-2">
                         <div class="content is-medium">
-
+                            
                             <h2 class="subtitle is-5 has-text-grey">{{post.created_at|date:'H:i d-m-Y'}}</h2>
                             <h1 class="title has-text-black is-3">{{post.title}}</h1>
                             <p><strong>{{post.intro}}</strong></p>
@@ -26,13 +23,19 @@
                                         href="{% url 'category_detail' post.category.slug %}">{{post.category}}</a></small>
                             </p>
 
+                            {% if post.image %}
+                            <figure class="image mb-6">
+                                <img src="{{ post.image.url }}">
+                            </figure>
+                            {% endif %}
+
                             <hr>
 
                             <h2 class="subtitle is-4">Comments</h2>
 
                             <form method="post" class="mb-6">
                                 {% csrf_token %}
-                                {{form.as_p}}
+                                {{comment_form.as_p}}
 
                                 <div class="field">
                                     <div class="control">
