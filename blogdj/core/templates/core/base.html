@@ -3,43 +3,59 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{%block title%}{%endblock%}Random blog page</title>
-
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{%endblock%}Random blog page</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet'
+        href='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/css/OverlayScrollbars.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/blog.css">
 
     <style>
         /* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
         body {
             font-family: 'Nunito', sans-serif;
-        }
-
-        ; */
+        } */
 
         nav.navbar {
             height: 6rem !important;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1), 0 2px 3px 0 rgba(0, 0, 0, .06) !important;
         }
     </style>
 </head>
 
-<body>
+<body style="background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+">
 
     <!-- {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    <ul class="messagelist">
+        <li class="success">
+            {{message}}
+        </li>
+    </ul>
     {% endfor %}
     {% endif %} -->
-    <nav class="navbar">
+    <nav class="navbar" style="background-color: #FFDEE9;
+    background-image: linear-gradient(to left, #FFDEE9 0%, #B5FFFC 100%); 
+    position:fixed; top:0; width: 100%;
+    ">
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
-                    <strong>Random blog page</strong>
+                    <img src="https://cdn.discordapp.com/attachments/846207949843857408/1039908767640330360/4922073.png"
+                        style="margin-right: 5px; height: auto; 
+                    width: auto; 
+                    max-width: 70px; 
+                    max-height: 70px;">
+                    <strong style="font-size: 20px;">Random Blog Page</strong>
                 </a>
                 <span class="navbar-burger burger" data-target="navbarMenu">
                     <span></span>
@@ -61,7 +77,7 @@
                         </form>
                     </div>
 
-                    <a href="/" class="navbar-item is-active is-size-5 has-text-weight-semibold">
+                    <a href="/" class="navbar-item is-size-5 has-text-weight-semibold">
                         Home
                     </a>
                     <a href="{% url 'about' %}" class="navbar-item is-size-5 has-text-weight-semibold">
@@ -69,8 +85,14 @@
                     </a>
 
                     {% if user.is_authenticated %}
-                    <a class="navbar-item is-size-5 has-text-weight-semibold">Hello, {{user.get_username}}</a>
-                    <a href="logout/" class="navbar-item is-size-5 has-text-weight-semibold">Log out</a>
+                    <div class="navbar-item is-size-5 has-text-weight-semibold has-dropdown is-hoverable">
+                        <a class="navbar-link">Hello, {{user.get_username}}</a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item is-size-5 has-text-weight-semibold">Profile</a>
+                            <a href="{% url 'logout' %}" class="navbar-item is-size-5 has-text-weight-semibold">Log
+                                out</a>
+                        </div>
+                    </div>
                     {% else %}
                     <a href="{% url 'login' %}" class="navbar-item is-size-5 has-text-weight-semibold">Login</a>
                     <a href="{% url 'register' %}" class="navbar-item is-size-5 has-text-weight-semibold">Sign up</a>
@@ -80,20 +102,20 @@
         </div>
     </nav>
 
-    <section class="section">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </section>
+    <div class="container" style="margin-top:95px; min-height:540px; ">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-    <footer class="footer">
+    <footer class="footer" style="background-color: #FFDEE9;
+    background-image: linear-gradient(to left, #FFDEE9 0%, #B5FFFC 100%); margin-top: 20px; max-height: 30px;">
         <div class="content has-text-centered">
-            <p>
+            <strong>
                 Random blog application for class INT2211 24 - UET
-            </p>
+            </strong>
         </div>
     </footer>
+
 </body>
 
 </html>

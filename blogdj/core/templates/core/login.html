@@ -4,16 +4,26 @@
 
 {% block content %}
 
-{% load crispy_forms_tags %}  
+{% load crispy_forms_tags %}
+
+<style>
+    .container {
+        text-align: center;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+</style>
 
 <div class="container py-5">
     <strong>Login</strong>
     <hr>
     <form method="POST">
         {% csrf_token %}
-        {{ login_form | crispy }}
-        <button class="btn btn-primary" type="submit">Login</button>
+        {{ form | crispy}}
+        <button class="button is-primary" type="submit">Login</button>
     </form>
-    <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+    <p class="text-center">Don't have an account yet? <a href="/register">Create an account</a>.</p>
 </div>
 {%endblock%}

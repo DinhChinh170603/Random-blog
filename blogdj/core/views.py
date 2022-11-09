@@ -13,7 +13,7 @@ from blog.models import Post
 
 def frontpage(request):
     posts = Post.objects.filter(status=Post.ACTIVE)
-    return render(request, 'core/frontpage.html', {'posts': posts})
+    return render(request, 'core/frontpage2.html', {'posts': posts})
 
 
 def about(request):
@@ -30,15 +30,15 @@ def robots_txt(request):
 
 def register(request):
     if request.method == 'POST':
-        register_form = NewUserForm(request.POST)
-        if register_form.is_valid():
-            user = register_form.save()
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
             auth_login(request, user)
             messages.success(request, "Registered successfully!")
             return redirect('frontpage')
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    register_form = NewUserForm()
-    return render(request, 'core/register.html', {'register_form': register_form})
+    form = NewUserForm()
+    return render(request, 'core/register.html', {'form': form})
 
 
 def login(request):
@@ -59,4 +59,4 @@ def login(request):
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request=request, template_name="core/login.html", context={"login_form": form})
+    return render(request=request, template_name="core/login.html", context={"form": form})

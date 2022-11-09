@@ -3,7 +3,10 @@
 {% block title %}{{post.title}} | {%endblock%}
 
 {% block content %}
-<section class="hero ">
+
+{% load crispy_forms_tags %}
+
+<section class="hero">
     <div class="hero-body">
         <div class="container">
             <section class="section">
@@ -12,15 +15,19 @@
 
                     <div class="column is-8 is-offset-2">
                         <div class="content is-medium">
-                            
+
+
                             <h2 class="subtitle is-5 has-text-grey">{{post.created_at|date:'H:i d-m-Y'}}</h2>
                             <h1 class="title has-text-black is-3">{{post.title}}</h1>
+                            {% if post.author %}
+                            <h1 class="title has-text-grey is-5">Posted by: {{post.author}}</h1>
+                            {% endif %}
                             <p><strong>{{post.intro}}</strong></p>
 
                             <p>{{post.body}}</p>
 
-                            <p><small>Category: <a
-                                        href="{% url 'category_detail' post.category.slug %}">{{post.category}}</a></small>
+                            <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}"
+                                        class="has-text-weight-semibold">{{post.category}}</a></small>
                             </p>
 
                             {% if post.image %}
@@ -33,9 +40,10 @@
 
                             <h2 class="subtitle is-4">Comments</h2>
 
+                            {% if user.is_authenticated %}
                             <form method="post" class="mb-6">
                                 {% csrf_token %}
-                                {{comment_form.as_p}}
+                                {{ form | crispy }}
 
                                 <div class="field">
                                     <div class="control">
@@ -43,6 +51,11 @@
                                     </div>
                                 </div>
                             </form>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="has-text-weight-semibold">Login to add your own
+                                comments!!!</a>
+                            {% endif %}
+                            <hr>
 
                             {% for comment in post.comments.all %}
                             <article class="media box">

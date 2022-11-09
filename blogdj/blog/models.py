@@ -1,4 +1,6 @@
+# from django.conf import settings
 from django.db import models
+from django.contrib.auth import get_user_model
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -15,6 +17,8 @@ class Category(models.Model):
         return '/%s/' % self.slug
 
 # Create your models here.
+
+
 class Post(models.Model):
     ACTIVE = 'active'
     DRAFT = 'draft'
@@ -24,29 +28,33 @@ class Post(models.Model):
         (DRAFT, 'Draft')
     )
 
+    author = models.ForeignKey(get_user_model(), related_name='uPost', on_delete=models.CASCADE, null = True)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=15, choices=CHOICES_STATUS, default=ACTIVE)
+    status = models.CharField(
+        max_length=15, choices=CHOICES_STATUS, default=ACTIVE)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     class Meta:
         ordering = ('-created_at',)
-    
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return '/%s/%s/' % (self.category.slug,self.slug)
+        return '/%s/%s/' % (self.category.slug, self.slug)
+
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments',on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    post = models.ForeignKey(
+        Post, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), related_name='uComment', on_delete=models.CASCADE, null = True)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name
