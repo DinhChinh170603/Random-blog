@@ -3,74 +3,69 @@
 {%block title%}Search for {{query}} | {%endblock%}
 
 {% block content %}
-<div class="container" style="display: flex;
-justify-content: center;
-align-content: center;
-flex-direction: column;">
-    <section class="articles" style="margin-top:15px;">
-        <div class="column is-8 is-offset-2">
-            <style>
-                .button {
-                    text-decoration: none;
-                    color: rgba(255, 255, 255, 0.8);
-                    background: rgb(35, 169, 146);
-                    display: block;
-                    transition: all 0.2s ease-in-out;
-                }
+<section class="articles" style="margin-top:15px;">
+    <div class="column is-8 is-offset-2">
+        <style>
+            .button {
+                text-decoration: none;
+                color: rgba(255, 255, 255, 0.8);
+                background: rgb(35, 169, 146);
+                display: block;
+                transition: all 0.2s ease-in-out;
+            }
 
-                .glow-button:hover {
-                    color: rgba(255, 255, 255, 1);
-                    box-shadow: 0 5px 15px rgba(35, 169, 146, 0.6);
-                }
+            .glow-button:hover {
+                color: rgba(255, 255, 255, 1);
+                box-shadow: 0 5px 15px rgba(35, 169, 146, 0.6);
+            }
 
-                .container {
-                    width: 100%;
-                    text-align: center;
-                }
-            </style>
-            <!-- START ARTICLE -->
-            <style>
-                p {
-                    text-align: center;
-                    text-transform: capitalize;
-                }
+            .container {
+                width: 100%;
+                text-align: center;
+            }
+        </style>
+        <!-- START ARTICLE -->
+        <style>
+            p {
+                text-align: center;
+                text-transform: capitalize;
+            }
 
-                .card.article.box {
-                    transition: box-shadow 0.2s ease;
-                }
+            .card.article.box {
+                transition: box-shadow 0.2s ease;
+            }
 
-                .card.article.box:hover {
-                    box-shadow: 0 0 10px #0066ff;
-                }
-            </style>
-            <div class="content is-medium">
-                <h1>Search results for "{{query}}"</h1>
-            </div>
-            {% for post in posts %}
-            <div class="card article box">
-                <a href="{% url 'post_detail' post.category.slug post.slug %}">
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-content has-text-centered">
-                                <h1 class="title article-title">{{post.title}}</h1>
-                                <div class="tags has-addons level-item">
-                                    <span class="tag is-rounded is-info">@{{post.author}}</span>
-                                    <span class="tag is-rounded">{{post.created_at|timesince}}</span>
-                                </div>
+            .card.article.box:hover {
+                box-shadow: 0 0 10px #0066ff;
+            }
+        </style>
+        <div class="content is-medium">
+            <h1>Search results for "{{query}}"</h1>
+        </div>
+        {% for post in posts %}
+        <div class="card article box">
+            <a href="{% url 'post_detail' post.category.slug post.slug %}">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content has-text-centered">
+                            <h1 class="title article-title">{{post.title}}</h1>
+                            <div class="tags has-addons level-item">
+                                <span class="tag is-rounded is-info">@{{post.author}}</span>
+                                <span class="tag is-rounded">{{post.created_at|timesince}}</span>
                             </div>
                         </div>
-                        <div class="content article-body">
-                            <h4 class="has-text-centered">{{post.intro}}</h4>
-                        </div>
                     </div>
-                </a>
-            </div>
-            {% empty %}
-            <div class="content">
-                <p>No results for the given query</p>
-            </div>
-            {% endfor %}
+                    <div class="content article-body">
+                        <h4 class="has-text-centered">{{post.intro}}</h4>
+                    </div>
+                </div>
+            </a>
         </div>
-    </section>
-</div>
+        {% empty %}
+        <div class="content">
+            <strong>No results for the given query</strong>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
