@@ -45,6 +45,7 @@
         text-align: center;
         padding: 20px 0;
         border-bottom: 1px solid silver;
+        font-size: large;
     }
 
     .center form {
@@ -140,7 +141,7 @@
 </div> -->
 
 <div class="center">
-    <h1>Log in</h1>
+    <h1 class="has-text-weight-semibold">Login</h1>
     <form method="post">
         {% csrf_token %}
         <div class="txt_field">
@@ -152,7 +153,6 @@
             <label>Password</label>
         </div>
         <button class="button is-primary" type="submit">Login</button>
-
 
         <div class="signup_link">
             Don't have an account yet? 
