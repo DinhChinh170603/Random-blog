@@ -6,6 +6,7 @@
 
 {% load crispy_forms_tags %}
 
+
 <section class="hero">
     <div class="hero-body">
         <div class="container">
@@ -16,38 +17,51 @@
                     <div class="column is-8 is-offset-2">
                         <div class="content is-medium">
 
+                            <div class="card article box">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <h2 class="subtitle is-5 has-text-grey">{{post.created_at|date:'H:i d-m-Y'}}
+                                            </h2>
+                                            <h1 class="title has-text-black is-3">{{post.title}}</h1>
+                                            <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}"
+                                                        class="has-text-weight-semibold">{{post.category}}</a></small>
+                                            </p>
+                                            {% if post.author %}
+                                            <h1 class="title has-text-grey is-5">Posted by: {{post.author}}</h1>
+                                            {% endif %}
+                                            <p><strong>{{post.intro}}</strong></p>
 
-                            <h2 class="subtitle is-5 has-text-grey">{{post.created_at|date:'H:i d-m-Y'}}</h2>
-                            <h1 class="title has-text-black is-3">{{post.title}}</h1>
-                            {% if post.author %}
-                            <h1 class="title has-text-grey is-5">Posted by: {{post.author}}</h1>
-                            {% endif %}
-                            <p><strong>{{post.intro}}</strong></p>
+                                            <p>{{post.body}}</p>
 
-                            <p>{{post.body}}</p>
 
-                            <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}"
-                                        class="has-text-weight-semibold">{{post.category}}</a></small>
-                            </p>
-
-                            {% if post.image %}
-                            <figure class="image mb-6">
-                                <img src="{{ post.image.url }}">
-                            </figure>
-                            {% endif %}
-
+                                            {% if post.image %}
+                                            <figure class="image mb-6">
+                                                <img src="{{ post.image.url }}">
+                                            </figure>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
 
                             <h2 class="subtitle is-4">Comments</h2>
 
                             {% if user.is_authenticated %}
                             <form method="post" class="mb-6">
+                                <style scoped>
+                                    input {
+                                        width: 100%;
+                                    }
+                                </style>
                                 {% csrf_token %}
-                                {{ form | crispy }}
+                                {{ form.body }}
 
                                 <div class="field">
                                     <div class="control">
-                                        <button class="button is-success">Submit comment</button>
+                                        <button class="button is-success" style="margin-top: 10px">Submit
+                                            comment</button>
                                     </div>
                                 </div>
                             </form>
@@ -60,8 +74,8 @@
                             {% for comment in post.comments.all %}
                             <article class="media box">
                                 <div class="media-content">
-                                    <strong>{{comment.name}}</strong>
-                                    <small>{{comment.created_at|date:'H:i'}}</small>
+                                    <strong>{{comment.author}}</strong>
+                                    <small>{{comment.created_at|timesince}} ago</small>
                                     <br>
                                     {{comment.body}}
                                 </div>

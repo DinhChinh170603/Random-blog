@@ -53,13 +53,13 @@
                         <div class="media-content has-text-centered">
                             <h1 class="title article-title">{{post.title}}</h1>
                             <div class="tags has-addons level-item">
-                                <span class="tag is-rounded is-info">@{{post.author}}</span>
-                                <span class="tag is-rounded">{{post.created_at|timesince}}</span>
+                                <span class="tag is-rounded is-danger">@{{post.author}}</span>
+                                <span class="tag is-rounded is-primary">{{post.created_at|timesince}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="content article-body">
-                        <h4 class="has-text-centered">{{post.intro}}</h4>
+                        <p class="has-text-black has-text-weight-semibold">{{post.intro}}</p>
                     </div>
                 </div>
             </a>
