@@ -42,11 +42,11 @@ def search(request):
 
 def createPost(request):
     if (request.method == 'POST'):
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if (form.is_valid()):
             post = form.save(commit=False)
-            post.slug = slugify(post.title)
             post.author = request.user
+            post.slug = slugify(post.title)
             post.save()
             return redirect('frontpage')
 
@@ -54,3 +54,7 @@ def createPost(request):
 
     return render(request, 'blog/create_post.html', {'post_form': form})
         
+def delete_post(request, id):
+    post = Post.objects.get(id = id)
+    post.delete()
+    return redirect('frontpage')

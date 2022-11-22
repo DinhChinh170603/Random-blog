@@ -17,10 +17,10 @@
     <link rel="stylesheet" type="text/css" href="../css/blog.css">
 
     <style>
-        /* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
         body {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Poppins', sans-serif;
         } */
 
         nav.navbar {
@@ -70,9 +70,9 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                     <a href="/" class="navbar-item is-size-5 has-text-weight-semibold">
                         Home
                     </a>
-                    <a href="{% url 'about' %}" class="navbar-item is-size-5 has-text-weight-semibold">
+                    <!-- <a href="{% url 'about' %}" class="navbar-item is-size-5 has-text-weight-semibold">
                         About
-                    </a>
+                    </a> -->
 
                     {% if user.is_authenticated %}
                     <div class="navbar-item is-size-5 has-text-weight-semibold has-dropdown is-hoverable">
