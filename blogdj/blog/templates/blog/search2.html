@@ -52,7 +52,8 @@
                     <div class="media">
                         <div class="media-content has-text-centered">
                             <h1 class="title article-title">{{post.title}}</h1>
-                            <div class="tags has-addons level-item">
+                            <strong class="has-text-grey">Category: {{post.category}}</strong>
+                            <div class="tags has-addons level-item" style="margin-top: 5px">
                                 <span class="tag is-rounded is-danger">@{{post.author}}</span>
                                 <span class="tag is-rounded is-primary">{{post.created_at|timesince}}</span>
                             </div>

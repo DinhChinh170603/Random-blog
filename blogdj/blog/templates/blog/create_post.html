@@ -9,6 +9,25 @@
 <div class="container py-5">
     <strong>Post detail</strong>
     <hr>
+    <style>
+        .button {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            background: linear-gradient(90deg, #3f51b5, transparent) #2196f3;
+            border:none;
+            transition: background-color 0.5s;
+        }
+
+        .glow-button:hover {
+            color: rgba(255, 255, 255, 1);
+            background-color: #e91e63;
+        }
+    </style>
+    <div class="container">
+        <a href="{% url 'create_category' %}" class="button glow-button has-text-weight-semibold" style="border:none">+
+            Create a new category</a>
+    </div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ post_form | crispy }}

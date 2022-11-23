@@ -7,42 +7,45 @@
 {% load crispy_forms_tags %}
 
 
-<section class="hero">
+<section class="hero" style="margin-top: -60px">
     <div class="hero-body">
         <div class="container">
             <section class="section">
-
                 <div class="columns">
-
                     <div class="column is-8 is-offset-2">
                         <div class="content is-medium">
-
                             <div class="card article box">
                                 <div class="card-content">
                                     <div class="media">
                                         <div class="media-content">
+
                                             <h2 class="subtitle is-5 has-text-grey">{{post.created_at|date:'H:i d-m-Y'}}
+                                                {% if post.author == user %}
+                                                <a href="{% url 'delete_post' post.id %}" style="float:right">Delete</a>
+                                                {% endif %}
                                             </h2>
+
                                             <h1 class="title has-text-black is-3">{{post.title}}</h1>
+
                                             <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}"
                                                         class="has-text-weight-semibold">{{post.category}}</a></small>
                                             </p>
+
                                             {% if post.author %}
                                             <h1 class="title has-text-grey is-5">Posted by: {{post.author}}</h1>
                                             {% endif %}
+
                                             <p><strong>{{post.intro}}</strong> </p>
 
                                             <p>{{post.body}}</p>
-
-                                            {% if post.author == user %}
-                                            <a href="{% url 'delete_post' post.id %}">Delete</a>
-                                            {% endif %}
 
                                             {% if post.image %}
                                             <figure class="image mb-6">
                                                 <img src="{{ post.image.url }}">
                                             </figure>
                                             {% endif %}
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -53,11 +56,6 @@
 
                             {% if user.is_authenticated %}
                             <form method="post" class="mb-6">
-                                <style scoped>
-                                    input {
-                                        width: 100%;
-                                    }
-                                </style>
                                 {% csrf_token %}
                                 {{ form.body }}
 
@@ -79,6 +77,10 @@
                                 <div class="media-content">
                                     <strong>{{comment.author}}</strong>
                                     <small>{{comment.created_at|timesince}} ago</small>
+                                    {% if post.author == user or comment.author == user %}
+                                    <a href="{ % url 'delete_comment' post.category.slug post.slug commment.id post.id % }"
+                                        style="float:right; font-size:15px">Remove</a>
+                                    {% endif %}
                                     <br>
                                     {{comment.body}}
                                 </div>
@@ -86,18 +88,6 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <!-- <div class="column is-5">
-                        <div class="content is-medium">
-                            <h2 class="subtitle is-5 has-text-grey">December 25, 2022</h2>
-                            <h1 class="title has-text-black is-3">Getting Started</h1>
-                            <p class="has-text-dark">This is a starter template for creating a beautiful, customizable
-                                blog with
-                                minimal
-                                effort. You’ll only have to change a few settings and you’re ready to go. As with all
-                                Jigsaw sites,
-                                configuration settings can be found in config</p>
-                        </div>
-                    </div> -->
                 </div>
             </section>
         </div>

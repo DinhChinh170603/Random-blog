@@ -2,12 +2,12 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 
-from .forms import CommentForm, PostForm
-from .models import Category, Post
+from .forms import CategoryForm, CommentForm, PostForm
+from .models import Category, Post, Comment
 
 # Create your views here.
-def detail(request, category_slug, slug):
-    post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
+def detail(request, category_slug, slug, id):
+    post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE, id = id)
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -18,7 +18,7 @@ def detail(request, category_slug, slug):
             comment.author = request.user
             comment.save()
 
-            return redirect('post_detail', category_slug = category_slug, slug=slug)
+            return redirect('post_detail', category_slug = category_slug, slug=slug, id=id)
     else:
         form = CommentForm()
 
@@ -48,13 +48,31 @@ def createPost(request):
             post.author = request.user
             post.slug = slugify(post.title)
             post.save()
-            return redirect('frontpage')
+            return redirect('post_detail', post.category.slug, post.slug, post.id)
 
     form = PostForm()
 
     return render(request, 'blog/create_post.html', {'post_form': form})
+
+def createCategory(request):
+    if (request.method == 'POST'):
+        form = CategoryForm(request.POST)
+        if (form.is_valid()):
+            category = form.save(commit=False)
+            category.slug = slugify(category.title)
+            category.save()
+            return redirect('create_post')
+        
+    form = CategoryForm()
+
+    return render(request, 'blog/create_category.html', {'form': form})
         
 def delete_post(request, id):
     post = Post.objects.get(id = id)
     post.delete()
     return redirect('frontpage')
+
+def delete_comment(request, category_slug, slug, comment_id, post_id):
+    comment = Comment.objects.get(id = comment_id)
+    comment.delete()
+    return redirect('post_detail', category_slug = category_slug, slug=slug, id=post_id)
