@@ -1,0 +1,73 @@
+{% extends 'core/base.html' %}
+
+{%block title%}Home | {%endblock%}
+
+{% block content %}
+
+<section class="articles">
+    <div class="column is-8 is-offset-2">
+        <style>
+            .button {
+                margin-top: 10px;
+                margin-bottom: 15px;
+                color: rgba(255, 255, 255, 0.8);
+                background: linear-gradient(90deg, #3f51b5, transparent) #2196f3;
+                display: block;
+                border:none;
+                transition: background-color 0.5s;
+            }
+
+            .glow-button:hover {
+                color: rgba(255, 255, 255, 1);
+                background-color: #e91e63;
+            }
+
+            .container {
+                width: 100%;
+                text-align: center;
+            }
+        </style>
+        <!-- START ARTICLE -->
+        <style>
+            p {
+                text-align: center;
+                text-transform: capitalize;
+            }
+
+            .card.article.box {
+                border: none;
+                transition: box-shadow 0.2s ease;
+            }
+
+            .card.article.box:hover {
+                box-shadow: 0 0 15px #0e08cd;
+            }
+        </style>
+        <div class="content is-medium" style="margin-top: 10px">
+            <h1>Posts by {{username}}</h1>
+        </div>
+        {% for post in posts %}
+        <div class="card article box">
+            <a href="{% url 'post_detail' post.category.slug post.slug post.id %}">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content has-text-centered">
+                            <h1 class="title article-title">{{post.title}}</h1>
+                            <h3 style="text-transform:capitalize" class="has-text-weight-semibold has-text-info">{{post.status}}</h3>
+                            <strong class="has-text-grey">Category: {{post.category}}</strong>
+                            <div class="tags has-addons level-item" style="margin-top:5px">
+                                <span class="tag is-rounded is-danger">@{{post.author}}</span>
+                                <span class="tag is-rounded is-primary">{{post.created_at|timesince}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content article-body">
+                        <p class="has-text-black has-text-weight-semibold">{{post.intro}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

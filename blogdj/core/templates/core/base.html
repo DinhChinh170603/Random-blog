@@ -15,7 +15,7 @@
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/blog.css">
-    
+
 
     <style>
         /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
@@ -79,7 +79,8 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
                     <div class="navbar-item is-size-5 has-text-weight-semibold has-dropdown is-hoverable">
                         <a class="navbar-link">Hello, {{user.get_username}}</a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item is-size-5 has-text-weight-semibold">Profile</a>
+                            <a href="{% url 'profile' user.username %}"
+                                class="navbar-item is-size-5 has-text-weight-semibold">Dashboard</a>
                             <a href="{% url 'logout' %}" class="navbar-item is-size-5 has-text-weight-semibold">Log
                                 out</a>
                         </div>

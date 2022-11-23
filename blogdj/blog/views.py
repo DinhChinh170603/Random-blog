@@ -7,7 +7,7 @@ from .models import Category, Post, Comment
 
 # Create your views here.
 def detail(request, category_slug, slug, id):
-    post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE, id = id)
+    post = get_object_or_404(Post, slug=slug, id = id)
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -26,6 +26,14 @@ def detail(request, category_slug, slug, id):
 
     return render(request, 'blog/detail.html', {'post': post, 'form': form})
 
+def profile(request, author):
+    if author == request.user.username:
+        posts = Post.objects.filter(author__username=author)
+    else:
+        posts = Post.objects.filter(author__username=author, status=Post.ACTIVE)
+
+    return render(request, 'blog/profile.html', {'posts': posts, 'username': author})
+    
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = category.posts.filter(status=Post.ACTIVE)
@@ -76,3 +84,15 @@ def delete_comment(request, category_slug, slug, comment_id, post_id):
     comment = Comment.objects.get(id = comment_id)
     comment.delete()
     return redirect('post_detail', category_slug = category_slug, slug=slug, id=post_id)
+
+def set_active(request, id):
+    post = Post.objects.get(id = id)
+    post.status = Post.ACTIVE
+    post.save()
+    return redirect('profile', post.author.username)
+
+def set_draft(request, id):
+    post = Post.objects.get(id = id)
+    post.status = Post.DRAFT
+    post.save()
+    return redirect('profile', post.author.username)
