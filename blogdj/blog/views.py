@@ -13,6 +13,17 @@ def detail(request, category_slug, slug, id):
         form = CommentForm(request.POST)
 
         if form.is_valid():
+            parent_obj = None
+            try:
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                if parent_obj:
+                    reply_comment = form.save(commit=False)
+                    reply_comment.parent = parent_obj
             comment = form.save(commit=False)
             comment.post = post
             comment.author = request.user
@@ -80,10 +91,11 @@ def delete_post(request, id):
     post.delete()
     return redirect('frontpage')
 
-def delete_comment(request, category_slug, slug, comment_id, post_id):
-    comment = Comment.objects.get(id = comment_id)
+def delete_comment(request, post_id, id):
+    comment = Comment.objects.get(id = id)
+    post = Post.objects.get(id = post_id)
     comment.delete()
-    return redirect('post_detail', category_slug = category_slug, slug=slug, id=post_id)
+    return redirect('post_detail', category_slug = post.category.slug, slug=post.slug, id=post_id)
 
 def set_active(request, id):
     post = Post.objects.get(id = id)

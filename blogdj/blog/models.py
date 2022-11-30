@@ -46,7 +46,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return '/%s/%s/' % (self.category.slug, self.slug)
+        return '/%s/%s/%s/' % (self.category.slug, self.slug, self.id)
 
 
 class Comment(models.Model):
@@ -55,6 +55,8 @@ class Comment(models.Model):
     author = models.ForeignKey(get_user_model(), related_name='uComment', on_delete=models.CASCADE, null = True)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.name

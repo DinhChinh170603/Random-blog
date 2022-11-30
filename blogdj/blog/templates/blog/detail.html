@@ -25,7 +25,8 @@
                                                 {% endif %}
                                             </h2>
 
-                                            <h1 class="title has-text-black is-3">{{post.title}}
+                                            <h1 class="title has-text-black is-3" style="margin-bottom:5px">
+                                                {{post.title}}
                                                 {% if post.author == user %}
                                                 {% if post.status == 'draft' %}
                                                 <a href="{% url 'set_active' post.id %}"
@@ -33,7 +34,7 @@
                                                 {% endif %}
                                                 {% if post.status == 'active' %}
                                                 <a href="{% url 'set_draft' post.id %}"
-                                                    style="float:right; font-size: 20px;margin-top:5px">Set draft</a>
+                                                    style="float:right; font-size: 20px;margin-top:5px">Hide</a>
                                                 {% endif %}
                                                 {% endif %}
                                             </h1>
@@ -85,18 +86,42 @@
                             <hr>
 
                             {% for comment in post.comments.all %}
+                            {% if not comment.parent %}
                             <article class="media box">
                                 <div class="media-content">
                                     <strong>{{comment.author}}</strong>
                                     <small>{{comment.created_at|timesince}} ago</small>
                                     {% if post.author == user or comment.author == user %}
-                                    <a href="{ % url 'delete_comment' post.category.slug post.slug commment.id post.id % }"
+                                    <a href="{% url 'delete_comment' post.id comment.id %}"
                                         style="float:right; font-size:15px">Remove</a>
                                     {% endif %}
                                     <br>
                                     {{comment.body}}
+                                    {% for reply in comment.replies.all %}
+                                    <article class="media box" style="background-color: rgba(211, 211, 211, 0.767);">
+                                        <div class="media-content">
+                                            <strong>{{reply.author}}</strong>
+                                            <small>{{reply.created_at|timesince}} ago</small>
+                                            {% if post.author == user or reply.author == user %}
+                                            <a href="{% url 'delete_comment' post.id reply.id %}"
+                                                style="float:right; font-size:15px">Remove</a>
+                                            {% endif %}
+                                            <br>
+                                            {{reply.body}}
+                                        </div>
+                                    </article>
+                                    {% endfor %}
+                                    <form method="post">
+                                        
+                                        {% csrf_token %}
+                                        {{ form.body }}
+                                        <!-- Hidden input for parent comment.id -->
+                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                        <input class="button is-success" type="submit" value="Reply">
+                                    </form>
                                 </div>
                             </article>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>

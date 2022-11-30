@@ -44,8 +44,14 @@
             }
         </style>
         <div class="content is-medium" style="margin-top: 10px">
-            <h1>Posts by {{username}}</h1>
+            <h1>{{username}}'s Dashboard</h1>
         </div>
+        {% if user.is_authenticated and user.username == username %}
+        <div class="container">
+            <a href="{% url 'create_post' %}" class="button glow-button has-text-weight-semibold" style="border:none">+
+                Create a post</a>
+        </div>
+        {% endif %}
         {% for post in posts %}
         <div class="card article box">
             <a href="{% url 'post_detail' post.category.slug post.slug post.id %}">

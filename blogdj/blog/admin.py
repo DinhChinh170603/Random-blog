@@ -20,7 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['author', 'post', 'created_at']
+    list_display = ['id', 'author', 'post', 'created_at']
 
 # Register your models here.
 admin.site.register(Post, PostAdmin)
