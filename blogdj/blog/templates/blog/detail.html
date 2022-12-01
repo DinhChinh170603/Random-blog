@@ -98,7 +98,7 @@
                                     <br>
                                     {{comment.body}}
                                     {% for reply in comment.replies.all %}
-                                    <article class="media box" style="background-color: rgba(211, 211, 211, 0.767);">
+                                    <article class="media box" style="background-color: rgba(211, 211, 211, 0.767); margin-bottom:5px">
                                         <div class="media-content">
                                             <strong>{{reply.author}}</strong>
                                             <small>{{reply.created_at|timesince}} ago</small>
@@ -111,14 +111,16 @@
                                         </div>
                                     </article>
                                     {% endfor %}
+                                    {% if user.is_authenticated %}
                                     <form method="post">
-                                        
                                         {% csrf_token %}
                                         {{ form.body }}
+                                        <br>
                                         <!-- Hidden input for parent comment.id -->
                                         <input type="hidden" name="parent_id" value="{{ comment.id }}">
                                         <input class="button is-success" type="submit" value="Reply">
                                     </form>
+                                    {% endif %}
                                 </div>
                             </article>
                             {% endif %}

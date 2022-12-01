@@ -65,7 +65,7 @@ def createPost(request):
         if (form.is_valid()):
             post = form.save(commit=False)
             post.author = request.user
-            post.slug = slugify(post.title)
+            post.slug = slugify("p" + post.title)
             post.save()
             return redirect('post_detail', post.category.slug, post.slug, post.id)
 
