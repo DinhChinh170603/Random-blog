@@ -6,21 +6,14 @@
   *	Member: Lưu Đình Chính (21020288), Vũ Ngọc Anh (21020535)
   *	Major: Information Technology (CN1) – Class: K66CD  
   *	Email address: 21020535@vnu.edu.vn
-  
-<h2>B. Hướng dẫn cài đặt:</h2>
 
-  * Cuộn lên đầu trang rồi chọn Code<màu xanh> rồi chọn Download ZIP
-  * Giải nén file vừa Download về
-  * Tạo 1 project trên IDE phù hợp
-  * Copy 4 folder game vào và run project!
-
-<h2>C. Mô tả chung về web:</h2>
+<h2>B. Mô tả chung về web:</h2>
   <img align="right" alt="DemoWeb" width="500" height="300" src="https://scontent.fhan7-1.fna.fbcdn.net/v/t1.15752-9/318462894_617176946846736_4210071211465135205_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=PEBeHQYKjLAAX8nW0Vh&tn=uw8QEPdZBnAn93xR&_nc_ht=scontent.fhan7-1.fna&oh=03_AdQZDDFDRGFeM3ltV7v-JvYBlrCh57RfVo04Bj6r9pYdkg&oe=63C28E52">
   <p> Như trên nền tảng mạng xã hội hiện hành bây giờ có thể kể đến rất nhiều như facebook, insta, twitter, zalo thì blog cũng một phần tương tự như vậy nhưng đơn giản hơn, mang trong mình ít tính năng hơn các nền tảng thông thường nhưng vẫn hoàn toàn đảm bảo cấu thành lên một trang web Blog tương đối hoàn chỉnh để mọi người có thể viết nên những tâm tư tình cảm, những dòng tâm sự khó nói và chia sẻ tới mọi người </p>
 
 
 
-<h2>D. Các chức năng của web:</h2>
+<h2>C. Các chức năng của web:</h2>
 
   * Giao diện chính:
     - Khu vực hiển thị bài viết, thanh task.
@@ -35,7 +28,7 @@
 		- Người viết comment cũng có thể tự xóa đi comment của chính mình nếu có sự thay đổi hay là không vừa ý.
   
 
- <h2>E. Tổng kết: </h2>
+ <h2>D. Tổng kết: </h2>
 
    **1. Kết luận**
   * Web: các chức năng cơ bản của một Blog Web.
